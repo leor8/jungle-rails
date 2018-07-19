@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20180718184442) do
     t.integer  "quantity"
     t.integer  "item_price_cents"
     t.integer  "total_price_cents"
+    t.string   "product_name"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
@@ -60,9 +61,9 @@ ActiveRecord::Schema.define(version: 20180718184442) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_foreign_key "line_items", "orders"
