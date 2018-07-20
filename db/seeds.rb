@@ -29,6 +29,13 @@ cat1 = Category.find_or_create_by! name: 'Apparel'
 cat2 = Category.find_or_create_by! name: 'Electronics'
 cat3 = Category.find_or_create_by! name: 'Furniture'
 
+User.create({
+ first_name: 'Leo',
+ last_name: "Ruan",
+ email: "123@123.123",
+ password_digest: 123
+})
+
 ## PRODUCTS
 
 puts "Re-creating Products ..."
@@ -40,7 +47,21 @@ cat1.products.create!({
   description: Faker::Hipster.paragraph(4),
   image: open_asset('apparel1.jpg'),
   quantity: 0,
-  price: 64.99
+  price: 64.99,
+})
+
+Rating.create!({
+  product_id: 1,
+  user_id: 1,
+  description: "Worst product EVER! Stay away!!!",
+  rating: 0
+})
+
+Rating.create!({
+  product_id: 1,
+  user_id: 1,
+  description: "I CHANGED MY MIND I LOVE THE PRODUCT",
+  rating: 5
 })
 
 cat1.products.create!({
@@ -65,6 +86,14 @@ cat1.products.create!({
   image: open_asset('apparel4.jpg'),
   quantity: 8,
   price: 25.00
+})
+
+
+Rating.create!({
+  product_id: 4,
+  user_id: 1,
+  description: "I am not a hipster",
+  rating: 0
 })
 
 cat1.products.create!({

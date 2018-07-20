@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
 
+  resources :products do
+    resources :rating, only: [:create, :destroy]
+  end
+
   resources :users
 
   resources :orders, only: [:create, :show]

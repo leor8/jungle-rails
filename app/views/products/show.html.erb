@@ -1,8 +1,6 @@
 <section class="products-show">
 
   <header class="page-header">
-<!--     <p>👺</p>
-    <h1>Username:<%= ENV["ADMIN_USERNAME"] %></h1> -->
     <h1><%= link_to @product.category.name, @product.category %> &raquo; <%= @product.name %></h1>
   </header>
 
@@ -25,7 +23,42 @@
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
         </dl>
+        <div class="ratings">
+          <h4>Product Ratings: </h4>
+          <% @product.ratings.each do |rating| %>
+            <dl class="dl-horizontal">
+              <dt>User: </dt>
+              <dd><%= User.find(rating.user_id).first_name %></dd>
+              <dt>Description: </dt>
+              <dd><%= rating.description %></dd>
+              <dt>Rating</dt>
+              <dd><%= rating.rating %>/5</dd>
+            </dl>
+            <% if current_user.id == rating.user_id %>
+              <%= button_to("Delete", "#{@product.id}/rating/#{rating.id}", method: 'delete', class: 'btn btn-danger') %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
+
+      <% if current_user %>
+
+        <%= form_tag("./#{@product.id}/rating", method:'post') do %>
+
+          <div class="form-group">
+            <label for="rating">Rating</label>
+            <%= select_tag(:rating, options_for_select([[1],[2],[3],[4],[5]]), class: 'form-control') %>
+          </div>
+          <div class="form-group" >
+            <label for="message">Description</label>
+            <%= text_area_tag(:message, nil, class: 'form-control') %>
+          </div>
+           <%= submit_tag("Submit", class: 'btn btn-primary') %>
+        <% end %>
+
+
+      <% end %>
+
     </div>
 
   </article>
